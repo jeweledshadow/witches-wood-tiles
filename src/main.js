@@ -3,23 +3,6 @@ var edgeOrders = require('./edgeOrders');
 var tileSet = require('./tiles');
 var tiles = tileSet.regularTiles;
 
-function edgeNumber(edge) {
-  switch (edge) {
-    case 'S':
-      return 1;
-    case 'W':
-      return 2;
-    case 'M':
-      return 3;
-    case 'L':
-      return 4;
-    case 'P':
-      return 5;
-    case 'G':
-      return 6;
-  }
-}
-
 function edgeOrderClass(edge) {
   switch (edge) {
     case 'S':
@@ -117,6 +100,13 @@ tileSet.regularTiles.forEach(tile => {
   addContent(hex, tile);
 });
 
+tileSet.regularTiles.forEach(tile => {
+  var hex = createHex();
+  var edgeOrder = randomEdgeOrder();
+
+  addCuriousityEdges(hex, edgeOrder);
+});
+
 tileSet.blankTiles.forEach(tile => {
   var hex = createHex();
   addContent(hex, tile);
@@ -125,14 +115,11 @@ tileSet.blankTiles.forEach(tile => {
 tileSet.numberedTiles.forEach(tile => {
   var hex = createHex();
 
-  var edgeOrder = randomEdgeOrder();
-
   for (var i = 0; i < 6; i++) {
-    var number = edgeNumber(edgeOrder[i]);
     var slot = document.createElement('span');
     slot.classList.add('slot');
     slot.classList.add(`slot-${i + 1}`);
-    slot.textContent = number;
+    slot.textContent = i + 1;
 
     var rotation = 30 + i * 60;
     var transform = `rotate(${rotation}deg) translateY(140px)`;

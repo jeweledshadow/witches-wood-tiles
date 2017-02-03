@@ -32,7 +32,7 @@ const blankTiles = [
 ];
 
 const numberedTiles = [
-  { amount: 2, name: "Crossroads (Tile has numbers, not curiosities)", subtext: "Roll a die: That&rsquo;s your new path"}
+  { amount: 2, name: "Crossroads", subtext: "Roll a die: That&rsquo;s your new path"}
 ]
 
 function flattenTiles(tiles) {
