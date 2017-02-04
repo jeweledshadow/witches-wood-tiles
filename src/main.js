@@ -1,3 +1,8 @@
+/* 
+select something and hit CTRL+D to select the next instance of the same thing 
+CTRL+U to select previous selection
+*/
+
 var grid = require('hex-grid');
 var edgeOrders = require('./edgeOrders');
 var tileSet = require('./tiles');
@@ -66,24 +71,22 @@ function addCuriousityEdges(element, edgeOrder) {
     var edgeType = edgeOrder[i];
     var rotation = 30 + i * 60;
 
+    var triangle = document.createElement('div');
+    triangle.classList.add('arrow');
+    triangle.style.borderTopColor = edgeColor(edgeType);
+    var transform = `rotate(${rotation}deg) translateY(144px)`;
+    triangle.style.transform = transform;
 
-    var edge = document.createElement('div');
-    edge.classList.add('arrow');
-    edge.style.borderTopColor = edgeColor(edgeType);
-    var transform = `rotate(${rotation}deg) translateY(150px)`;
-    edge.style.transform = transform;
+    var image = document.createElement('i');
+    image.classList.add('slot');
+    image.classList.add(`slot-${i + 1}`);
+    image.classList.add('em');
+    image.classList.add(edgeOrderClass(edgeType));
+    var transform = `rotate(${rotation}deg) translateY(135px)`;
+    image.style.transform = transform;
+    element.appendChild(image);
 
-    var slot = document.createElement('i');
-    slot.classList.add('slot');
-    slot.classList.add(`slot-${i + 1}`);
-    slot.classList.add('em');
-    slot.classList.add(edgeOrderClass(edgeType));
-    var transform = `rotate(${rotation}deg) translateY(140px)`;
-    slot.style.transform = transform;
-    element.appendChild(slot);
-
-
-    element.appendChild(edge);
+    element.appendChild(triangle);
   }
 }
 
@@ -184,3 +187,4 @@ function scan() {
 scan();
 window.addEventListener('resize', scan);
 window.addEventListener('load', scan);
+
