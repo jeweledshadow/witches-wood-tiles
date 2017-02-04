@@ -25,16 +25,19 @@
       .slot {
         position: absolute;
         font-size: 24px;
+        filter: grayscale(100%);
+        z-index: 100;
+        color: black;
       }
 
       .edge {
         position: absolute;
-        height: 10px;
+        height: 20px;
         width: 120px;
       }
 
       .content {
-        width: 70%;
+        width: 65%;
         text-align: center;
       }
 
@@ -45,6 +48,15 @@
 
       @media print {
         body {-webkit-print-color-adjust: exact;}
+      }
+
+      .arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 60px solid transparent;
+        border-right: 60px solid transparent;
+        border-top: 60px solid transparent;
       }
     </style>
   </head>

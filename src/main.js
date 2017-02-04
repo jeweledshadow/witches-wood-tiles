@@ -25,7 +25,7 @@ function edgeOrderClass(edge) {
 function edgeColor(edge) {
   switch (edge) {
     case 'S':
-      return 'blue'
+      return 'darkmagenta'
     case 'W':
       return 'turquoise';
     case 'M':
@@ -53,22 +53,25 @@ function randomEdgeOrder() {
 function addCuriousityEdges(element, edgeOrder) {
   for (var i = 0; i < 6; i++) {
     var edgeType = edgeOrder[i];
+    var rotation = 30 + i * 60;
+
+
+    var edge = document.createElement('div');
+    edge.classList.add('arrow');
+    edge.style.borderTopColor = edgeColor(edgeType);
+    var transform = `rotate(${rotation}deg) translateY(150px)`;
+    edge.style.transform = transform;
+
     var slot = document.createElement('i');
     slot.classList.add('slot');
     slot.classList.add(`slot-${i + 1}`);
     slot.classList.add('em');
     slot.classList.add(edgeOrderClass(edgeType));
-
-    var rotation = 30 + i * 60;
     var transform = `rotate(${rotation}deg) translateY(140px)`;
     slot.style.transform = transform;
     element.appendChild(slot);
 
-    var edge = document.createElement('div');
-    edge.classList.add('edge');
-    edge.style.backgroundColor = edgeColor(edgeType);
-    var transform = `rotate(${rotation}deg) translateY(170px)`;
-    edge.style.transform = transform;
+
     element.appendChild(edge);
   }
 }
@@ -160,7 +163,7 @@ function scan() {
 
     grid({
       element: gridEle,
-      spacing: -8,
+      spacing: -3,
     }, hexes);
 
     var lastHex = hexes[hexes.length - 1];
