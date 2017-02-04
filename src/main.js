@@ -3,6 +3,17 @@ var edgeOrders = require('./edgeOrders');
 var tileSet = require('./tiles');
 var tiles = tileSet.regularTiles;
 
+/*
+legal = 8
+letter = 6
+*/
+var NUMBER_TILES_PER_PAGE_GROUP = 8;
+/*
+letter = 160
+legal = 210
+*/
+var PIXELS_BETWEEN_PAGE_GROUP = 210;
+
 var allHexes = [];
 
 function edgeOrderClass(edge) {
@@ -133,12 +144,11 @@ tileSet.numberedTiles.forEach(tile => {
   addContent(hex, tile);
 });
 
-var numberPerGroup = 6;
 var current = 0;
 
 while(current < allHexes.length) {
-  var groupHexes = allHexes.slice(current, current + numberPerGroup);
-  current += numberPerGroup;
+  var groupHexes = allHexes.slice(current, current + NUMBER_TILES_PER_PAGE_GROUP);
+  current += NUMBER_TILES_PER_PAGE_GROUP;
 
   var gridWrapper = document.createElement('div');
   gridWrapper.classList.add('wrapper');
@@ -159,8 +169,6 @@ function scan() {
   grids.forEach(gridEle => {
     var hexes = gridEle.getElementsByClassName('hex');
 
-    console.log(gridEle);
-
     grid({
       element: gridEle,
       spacing: -3,
@@ -168,7 +176,7 @@ function scan() {
     }, hexes);
 
     var lastHex = hexes[hexes.length - 1];
-    var height = lastHex.offsetHeight + lastHex.offsetTop + 160;
+    var height = lastHex.offsetHeight + lastHex.offsetTop + PIXELS_BETWEEN_PAGE_GROUP;
     gridEle.style.height = `${height}px`;
   });
 }
