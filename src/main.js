@@ -3,6 +3,8 @@ var edgeOrders = require('./edgeOrders');
 var tileSet = require('./tiles');
 var tiles = tileSet.regularTiles;
 
+var allHexes = [];
+
 function edgeOrderClass(edge) {
   switch (edge) {
     case 'S':
@@ -85,12 +87,10 @@ function addContent(element, tile) {
 function createHex() {
   var hex = document.createElement('div');
   hex.className = 'hex';
-  gridEle.appendChild(hex);
+  allHexes.push(hex);
 
   return hex;
 }
-
-var gridEle = document.getElementById('grid');
 
 tileSet.regularTiles.forEach(tile => {
   var hex = createHex();
@@ -130,16 +130,43 @@ tileSet.numberedTiles.forEach(tile => {
   addContent(hex, tile);
 });
 
-var hexes = document.querySelectorAll('.hex');
+var numberPerGroup = 6;
+var current = 0;
 
-var root = document.querySelector('#grid');
+while(current < allHexes.length) {
+  var groupHexes = allHexes.slice(current, current + numberPerGroup);
+  current += numberPerGroup;
 
-var g;
-function scan () {
-    g = grid({
-      element: root,
+  var gridWrapper = document.createElement('div');
+  gridWrapper.classList.add('wrapper');
+
+  var gridEle = document.createElement('div');
+  gridEle.classList.add('grid');
+  groupHexes.forEach(hex => {
+    gridEle.appendChild(hex);
+  });
+
+  gridWrapper.appendChild(gridEle)
+  document.body.appendChild(gridWrapper);
+}
+
+function scan() {
+  var grids = Array.from(document.querySelectorAll('.grid'));
+
+  grids.forEach(gridEle => {
+    var hexes = gridEle.getElementsByClassName('hex');
+
+    console.log(gridEle);
+
+    grid({
+      element: gridEle,
       spacing: -8,
     }, hexes);
+
+    var lastHex = hexes[hexes.length - 1];
+    var height = lastHex.offsetHeight + lastHex.offsetTop + 100;
+    gridEle.style.height = `${height}px`;
+  });
 }
 
 scan();
