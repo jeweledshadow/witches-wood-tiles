@@ -164,7 +164,7 @@ function scan() {
     }, hexes);
 
     var lastHex = hexes[hexes.length - 1];
-    var height = lastHex.offsetHeight + lastHex.offsetTop + 100;
+    var height = lastHex.offsetHeight + lastHex.offsetTop + 160;
     gridEle.style.height = `${height}px`;
   });
 }
