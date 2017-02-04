@@ -164,6 +164,7 @@ function scan() {
     grid({
       element: gridEle,
       spacing: -3,
+      width: 1000
     }, hexes);
 
     var lastHex = hexes[hexes.length - 1];
